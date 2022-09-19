@@ -1,6 +1,6 @@
 import { Index } from 'flexsearch';
 import * as Guidebook from 'react-guidebook';
-import guidebook from '../../guidebook';
+import guidebook from '../../guidebook.ts';
 
 let searchDocuments: any[] = [];
 let searchIndexPromise: any = undefined;
