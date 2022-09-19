@@ -67,13 +67,15 @@ try {
   //
 }
 
-const erc721DelegatedAddress: ScopedAccessToken = {
+const erc721DelegatedAddress: any = {
   mainnet: '0x43955024b1985e2b933a59021500ae5f55b04091',
   rinkeby: '0x86c67a16c16bf784bdfe7d4b7575db664d191f88',
   ropsten: '',
   goerli: '',
   polygon: '',
   mumbai: '',
+  bsc: '',
+  bsctest: '',
 };
 
 function useCompiler() {
@@ -129,7 +131,7 @@ export default function NFTStudio() {
     return config;
   }, [router.query.config]);
 
-  const [state, dispatch] = useReducer(
+  const [state, dispatch]: any = useReducer(
     reducer,
     createInitialState(initialConfig),
   );
@@ -228,7 +230,7 @@ export default function NFTStudio() {
 
       let deploymentAddress: Address;
 
-      const chainName = getChainName(chainId);
+      const chainName = chainId === "0x38" ? 'bsc' : chainId === "0x61" ? 'bsctest' : getChainName(chainId);
 
       try {
         if (
@@ -301,7 +303,7 @@ export default function NFTStudio() {
         contracts[sourceName][contractName].abi,
       );
 
-      const chainName = getChainName(chainId);
+      const chainName = chainId === "0x38" ? 'bsc' : chainId === "0x61" ? 'bsctest' : getChainName(chainId);
 
       const deployArguments = contractInterface
         .encodeDeploy([
@@ -319,7 +321,7 @@ export default function NFTStudio() {
         .replace('0x', '');
 
       const verifyRequest = toVerifyRequest({
-        apiKey: state.apiKeys.etherscan,
+        apiKey: state.apiKeys[chainId === "0x38" ? 'bsc' : chainId === "0x61" ? 'bsctest' : getChainName(chainId)],
         compilerVersion: 'v0.8.9+commit.e5eed63a',
         constructorArguments: deployArguments,
         contractAddress: state.deployment.address,
@@ -346,7 +348,7 @@ export default function NFTStudio() {
       // console.log('res', verificationResult);
 
       const checkStatusRequest = toCheckStatusRequest({
-        apiKey: state.apiKeys.etherscan,
+        apiKey: state.apiKeys[chainId === "0x38" ? 'bsc' : chainId === "0x61" ? 'bsctest' : getChainName(chainId)],
         guid: verificationResult.result,
       });
 
@@ -538,12 +540,15 @@ export default function NFTStudio() {
                 }
                 onClick={handleDeploy}
               >
+                {
+                  console.log(chainId, chainId)
+                }
                 {chainId
-                  ? `Deploy on ${getChainName(chainId)}`
+                  ? `Deploy on ${chainId === "0x38" ? 'binance' : chainId === "0x61" ? 'test binance' : getChainName(chainId)}`
                   : 'Deploy' +
-                    (state.compiler.type === 'done' && !provider
-                      ? ' (connect wallet to deploy)'
-                      : '')}
+                  (state.compiler.type === 'done' && !provider
+                    ? ' (connect wallet to deploy)'
+                    : '')}
               </Button>
               <Button
                 disabled={
@@ -555,7 +560,7 @@ export default function NFTStudio() {
               >
                 Verify{' '}
                 {!state.apiKeys.etherscan &&
-                state.deployment.type === 'deployed'
+                  state.deployment.type === 'deployed'
                   ? '(need API key)'
                   : ''}
               </Button>

@@ -17,50 +17,50 @@ export const GWEI_SLIM_VERSION = '1.0.3';
 
 export type CompilerState =
   | {
-      type: 'notStarted';
-    }
+    type: 'notStarted';
+  }
   | {
-      type: 'downloading';
-    }
+    type: 'downloading';
+  }
   | {
-      type: 'ready';
-      files: Record<string, string>;
-    }
+    type: 'ready';
+    files: Record<string, string>;
+  }
   | {
-      type: 'error';
-      errors: any[];
-    }
+    type: 'error';
+    errors: any[];
+  }
   | {
-      type: 'done';
-      files: Record<string, string>;
-      contracts: CompilerOutput['contracts'];
-      sourceName: string;
-      contractName: string;
-    };
+    type: 'done';
+    files: Record<string, string>;
+    contracts: CompilerOutput['contracts'];
+    sourceName: string;
+    contractName: string;
+  };
 
 export type DeploymentState =
   | {
-      type: 'notStarted';
-    }
+    type: 'notStarted';
+  }
   | {
-      type: 'deploying';
-    }
+    type: 'deploying';
+  }
   | {
-      type: 'deployed';
-      address: Address;
-    };
+    type: 'deployed';
+    address: Address;
+  };
 
 export type VerificationState =
   | {
-      type: 'notStarted';
-      previousError?: Error;
-    }
+    type: 'notStarted';
+    previousError?: Error;
+  }
   | {
-      type: 'verifying';
-    }
+    type: 'verifying';
+  }
   | {
-      type: 'verified';
-    };
+    type: 'verified';
+  };
 
 export type EthereumChainName = ReturnType<typeof getChainName>;
 
@@ -101,10 +101,10 @@ export type ContractConfigState = {
   usesUriStorage: boolean;
   usesIdParameter: boolean;
   tokenParameters: TokenParameter[];
-  requireAccessToken?: ScopedAccessToken;
+  requireAccessToken?: any;
   toggleAccessToken: boolean;
   mutableAccessToken: boolean;
-  approvalProxyAddress?: ScopedAccessToken;
+  approvalProxyAddress?: any;
   payoutDestinations: PayoutDestination[];
   amountAllowedForOwner: number;
   allowlistDestinations: AllowlistDestination[];
@@ -117,210 +117,218 @@ type State = {
   verification: VerificationState;
   apiKeys: {
     etherscan: string;
+    mainnet: string;
+    ropsten: string;
+    rinkeby: string;
+    goerli: string;
+    mumbai: string;
+    polygon: string;
+    bsc: string;
+    bsctest: string;
   };
 };
 
 type PayoutActions =
   | {
-      type: 'addPayoutDestination';
-    }
+    type: 'addPayoutDestination';
+  }
   | {
-      type: 'removePayoutDestination';
-      index: number;
-    }
+    type: 'removePayoutDestination';
+    index: number;
+  }
   | {
-      type: 'setPayoutDestinationAddress';
-      index: number;
-      address: Address;
-    }
+    type: 'setPayoutDestinationAddress';
+    index: number;
+    address: Address;
+  }
   | {
-      type: 'setPayoutDestinationAmount';
-      index: number;
-      amount: number;
-    }
+    type: 'setPayoutDestinationAmount';
+    index: number;
+    amount: number;
+  }
   | {
-      type: 'movePayoutDestination';
-      sourceIndex: number;
-      destinationIndex: number;
-    };
+    type: 'movePayoutDestination';
+    sourceIndex: number;
+    destinationIndex: number;
+  };
 
 type AllowlistActions =
   | {
-      type: 'addAllowlistDestination';
-    }
+    type: 'addAllowlistDestination';
+  }
   | {
-      type: 'removeAllowlistDestination';
-      index: number;
-    }
+    type: 'removeAllowlistDestination';
+    index: number;
+  }
   | {
-      type: 'setAllowlistDestinationAddress';
-      index: number;
-      address: Address;
-    }
+    type: 'setAllowlistDestinationAddress';
+    index: number;
+    address: Address;
+  }
   | {
-      type: 'setAllowlistDestinationAmount';
-      index: number;
-      amount: number;
-    }
+    type: 'setAllowlistDestinationAmount';
+    index: number;
+    amount: number;
+  }
   | {
-      type: 'setAmountAllowedForOwner';
-      amount: number;
-    }
+    type: 'setAmountAllowedForOwner';
+    amount: number;
+  }
   | {
-      type: 'moveAllowlistDestination';
-      sourceIndex: number;
-      destinationIndex: number;
-    };
+    type: 'moveAllowlistDestination';
+    sourceIndex: number;
+    destinationIndex: number;
+  };
 
 type TokenParameterActions =
   | {
-      type: 'addTokenParameter';
-    }
+    type: 'addTokenParameter';
+  }
   | {
-      type: 'removeTokenParameter';
-      index: number;
-    }
+    type: 'removeTokenParameter';
+    index: number;
+  }
   | {
-      type: 'setTokenParameterName';
-      index: number;
-      name: string;
-    }
+    type: 'setTokenParameterName';
+    index: number;
+    name: string;
+  }
   | {
-      type: 'setTokenParameterType';
-      index: number;
-      tokenType: TokenParameterType;
-    }
+    type: 'setTokenParameterType';
+    index: number;
+    tokenType: TokenParameterType;
+  }
   | {
-      type: 'moveTokenParameter';
-      sourceIndex: number;
-      destinationIndex: number;
-    };
+    type: 'moveTokenParameter';
+    sourceIndex: number;
+    destinationIndex: number;
+  };
 
 export type Action =
   | TokenParameterActions
   | PayoutActions
   | AllowlistActions
   | {
-      type: 'setConfig';
-      config: Partial<ContractConfigState>;
-    }
+    type: 'setConfig';
+    config: Partial<ContractConfigState>;
+  }
   | {
-      type: 'setTokenName';
-      value: string;
-    }
+    type: 'setTokenName';
+    value: string;
+  }
   | {
-      type: 'setShortName';
-      value: string;
-    }
+    type: 'setShortName';
+    value: string;
+  }
   | {
-      type: 'setTokenURI';
-      value: string;
-    }
+    type: 'setTokenURI';
+    value: string;
+  }
   | {
-      type: 'setContractURI';
-      value?: string;
-    }
+    type: 'setContractURI';
+    value?: string;
+  }
   | {
-      type: 'setSupply';
-      value: number | null;
-    }
+    type: 'setSupply';
+    value: number | null;
+  }
   | {
-      type: 'setMultiMint';
-      value?: number;
-    }
+    type: 'setMultiMint';
+    value?: number;
+  }
   | {
-      type: 'setMintingLimitPerWallet';
-      value?: number;
-    }
+    type: 'setMintingLimitPerWallet';
+    value?: number;
+  }
   | {
-      type: 'setPrice';
-      value?: string;
-    }
+    type: 'setPrice';
+    value?: string;
+  }
   | {
-      type: 'setRoyaltyBps';
-      value?: string;
-    }
+    type: 'setRoyaltyBps';
+    value?: string;
+  }
   | {
-      type: 'setActivateAutomatically';
-      value: boolean;
-    }
+    type: 'setActivateAutomatically';
+    value: boolean;
+  }
   | {
-      type: 'setEnumerable';
-      value: boolean;
-    }
+    type: 'setEnumerable';
+    value: boolean;
+  }
   | {
-      type: 'setOnlyOwnerCanMint';
-      value: boolean;
-    }
+    type: 'setOnlyOwnerCanMint';
+    value: boolean;
+  }
   | {
-      type: 'setUsesUriStorage';
-      value: boolean;
-    }
+    type: 'setUsesUriStorage';
+    value: boolean;
+  }
   | {
-      type: 'setUsesIdParameter';
-      value: boolean;
-    }
+    type: 'setUsesIdParameter';
+    value: boolean;
+  }
   | {
-      type: 'setCustomMaxTokenId';
-      value: number | undefined;
-    }
+    type: 'setCustomMaxTokenId';
+    value: number | undefined;
+  }
   | {
-      type: 'setToggleAccessToken';
-      value: boolean;
-    }
+    type: 'setToggleAccessToken';
+    value: boolean;
+  }
   | {
-      type: 'setMutableAccessToken';
-      value: boolean;
-    }
+    type: 'setMutableAccessToken';
+    value: boolean;
+  }
   | {
-      type: 'setAccessToken';
-      value?: ScopedAccessToken;
-    }
+    type: 'setAccessToken';
+    value?: ScopedAccessToken;
+  }
   | {
-      type: 'setApprovalProxyAddress';
-      value?: ScopedAccessToken;
-    }
+    type: 'setApprovalProxyAddress';
+    value?: ScopedAccessToken;
+  }
   | {
-      type: 'downloadFiles';
-    }
+    type: 'downloadFiles';
+  }
   | {
-      type: 'setCompilerReady';
-      value: Record<string, string>;
-    }
+    type: 'setCompilerReady';
+    value: Record<string, string>;
+  }
   | {
-      type: 'setCompilerDone';
-      value: SolidityCompilerOutput;
-      sourceName: string;
-      contractName: string;
-    }
+    type: 'setCompilerDone';
+    value: SolidityCompilerOutput;
+    sourceName: string;
+    contractName: string;
+  }
   | {
-      type: 'setDeploying';
-    }
+    type: 'setDeploying';
+  }
   | {
-      type: 'setDeploymentAddress';
-      value: Address;
-    }
+    type: 'setDeploymentAddress';
+    value: Address;
+  }
   | {
-      type: 'deployFailure';
-    }
+    type: 'deployFailure';
+  }
   | {
-      type: 'setEtherscanApiKey';
-      value: string;
-    }
+    type: 'setEtherscanApiKey';
+    value: string;
+  }
   | {
-      type: 'setVerifying';
-    }
+    type: 'setVerifying';
+  }
   | {
-      type: 'setVerificationFailed';
-      error: Error;
-    }
+    type: 'setVerificationFailed';
+    error: Error;
+  }
   | {
-      type: 'setVerified';
-    }
+    type: 'setVerified';
+  }
   | {
-      type: 'setUsesDelegatedContract';
-      value: boolean;
-    };
+    type: 'setUsesDelegatedContract';
+    value: boolean;
+  };
 
 export function createDefaultConfig(): Partial<ContractConfigState> {
   return {
@@ -350,6 +358,8 @@ export function createOpenPaletteConfig(): Partial<ContractConfigState> {
       goerli: '',
       polygon: '',
       mumbai: '',
+      bsctest: '',
+      bsc: '',
     },
     approvalProxyAddress: {
       mainnet: getProxyAddress(CHAIN_ID.MAINNET),
@@ -358,6 +368,8 @@ export function createOpenPaletteConfig(): Partial<ContractConfigState> {
       goerli: '',
       polygon: '',
       mumbai: '',
+      bsc: '',
+      bsctest: '',
     },
   };
 }
@@ -399,10 +411,15 @@ export function createInitialState(
       type: 'notStarted',
     },
     apiKeys: {
-      etherscan:
-        typeof localStorage !== 'undefined'
-          ? localStorage.getItem('etherscanApiKey') ?? ''
-          : '',
+      etherscan: "EZMJKTS3XMAN62PV1488SCHVXUMGCSRY19",
+      mainnet: "EZMJKTS3XMAN62PV1488SCHVXUMGCSRY19",
+      ropsten: "EZMJKTS3XMAN62PV1488SCHVXUMGCSRY19",
+      rinkeby: "EZMJKTS3XMAN62PV1488SCHVXUMGCSRY19",
+      goerli: "EZMJKTS3XMAN62PV1488SCHVXUMGCSRY19",
+      mumbai: "NZWDG8TSSR45AXMKBFEN2PKUZVI24NSAYH",
+      polygon: "NZWDG8TSSR45AXMKBFEN2PKUZVI24NSAYH",
+      bsc: "UJF9B2ARBPV4CCC89Z95NJHQH44R1ZZJE1",
+      bsctest: "UJF9B2ARBPV4CCC89Z95NJHQH44R1ZZJE1",
     },
   };
 }

@@ -31,7 +31,7 @@ async function fetchJsonRpcData(
   }
 
   const provider = new ethers.providers.JsonRpcProvider(
-    `https://${getChainName(chainId)}.infura.io/v3/${infuraProjectId}`,
+    `https://${chainId === "0x38" ? 'bsc' : chainId === "0x61" ? 'bsctest' : getChainName(chainId)}.infura.io/v3/${infuraProjectId}`,
   );
 
   const contractWithProvider = new Contract(
@@ -116,13 +116,13 @@ export async function callReadOnlyContractFunction<T = FunctionOutput>(
     fetchEthorActorData({ chainId, address: contract.address, fragment, args }),
     ...(infuraProjectId && !isPolygonOrMumbai(chainId)
       ? [
-          fetchJsonRpcData(infuraProjectId, {
-            chainId,
-            fragment,
-            contract,
-            args,
-          }),
-        ]
+        fetchJsonRpcData(infuraProjectId, {
+          chainId,
+          fragment,
+          contract,
+          args,
+        }),
+      ]
       : []),
     ...(contract.provider && providerChainId === chainId
       ? [contract.callStatic[fragment.name](...args)]

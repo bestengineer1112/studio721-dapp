@@ -23,7 +23,7 @@ export function ConnectionDisplay() {
     <HStack background="#111" paddingHorizontal={10}>
       <Body>
         <span style={{ fontFamily: 'monospace' }}>
-          {getChainName(chainId ?? CHAIN_ID.MAINNET)} |{' '}
+          {chainId === "0x38" ? 'bsc' : chainId === "0x61" ? 'bsctest' : getChainName(chainId ?? CHAIN_ID.MAINNET)} |{' '}
           {formatDisplayAddress(address)}
         </span>
         <SpacerHorizontal inline size={6} />

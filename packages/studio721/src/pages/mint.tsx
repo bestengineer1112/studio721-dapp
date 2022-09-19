@@ -32,7 +32,7 @@ import {
   mintStyleReducer,
   MintStyleState,
 } from 'state';
-import { getEtherActorBaseURL, getEtherscanAddressUrl } from 'web3-utils';
+import { getEtherActorBaseURL, getABIBaseURL, getEtherscanAddressUrl } from 'web3-utils';
 import delegatedAbi from '../assets/slim-gwei-abi.json';
 import { BackgroundFill } from '../components/mint/BackgroundFill';
 import { ColorPicker } from '../components/mint/ColorPicker';
@@ -42,6 +42,7 @@ import {
   decodeConfigParameter,
   useUrlConfigReducer,
 } from '../hooks/useUrlConfigReducer';
+import Config from './config';
 
 interface ServerProps {
   isAddressLocked: boolean;
@@ -80,14 +81,15 @@ export default function Mint({
 
   const [showStyleEditor, setShowStyleEditor] = useState(false);
 
-  const etherActorAbi = useFetch<{ abi: any }>(
-    style.contractAddress
-      ? `${getEtherActorBaseURL(style.chainId || chainId)}/${
-          style.contractAddress
-        }.json`
+  // ? `${getEtherActorBaseURL(style.chainId || chainId)}/${style.contractAddress
+  // }.json`
+  const etherActorAbi: any = useFetch<{ abi: any }>(
+    style.contractAddress ?
+      `${getABIBaseURL(style.chainId || chainId, style.contractAddress)}`
       : undefined,
   );
 
+  console.log(etherActorAbi, "etherActorAbi")
   useEffect(() => {
     if (!serverAbi && etherActorAbi.type !== 'success') return;
 
@@ -112,7 +114,7 @@ export default function Mint({
 
     if (etherActorAbi.type !== 'success') return;
 
-    return new Interface(addDelegatedImplementation(etherActorAbi.value.abi));
+    return new Interface(addDelegatedImplementation(JSON.parse(etherActorAbi.value.result)));
   }, [etherActorAbi, serverAbi]);
 
   const contract = useMemo(() => {
@@ -135,10 +137,10 @@ export default function Mint({
       : parsedBackground;
   const invertForeground = actualBackground
     ? getLuminance({
-        r: actualBackground[0] / 255,
-        g: actualBackground[1] / 255,
-        b: actualBackground[2] / 255,
-      }) > 0.5
+      r: actualBackground[0] / 255,
+      g: actualBackground[1] / 255,
+      b: actualBackground[2] / 255,
+    }) > 0.5
     : false;
 
   const nameFunction = abi ? abi.functions['name()'] : undefined;
@@ -440,7 +442,7 @@ export default function Mint({
                     fontSize: '16px',
                     fontFamily: 'monospace',
                   }}
-                  onChange={(value) => {}}
+                  onChange={(value) => { }}
                 />
               </InputField.Root>
               <Button
@@ -483,12 +485,10 @@ export async function getServerSideProps(
   try {
     if (parsedConfig.contractAddress) {
       const response = await fetch(
-        `${getEtherActorBaseURL(parsedConfig.chainId ?? CHAIN_ID.MAINNET)}/${
-          parsedConfig.contractAddress
-        }.json`,
+        `${getABIBaseURL(parsedConfig.chainId ?? CHAIN_ID.MAINNET, parsedConfig.contractAddress)}`,
       );
-      const data = await response.json();
-      abi = data.abi;
+      const data: any = await response.json();
+      abi = JSON.parse(data.result);
     }
   } catch {
     //

@@ -1,0 +1,7 @@
+export default {
+    API_KEY: {
+        etherscan: "EZMJKTS3XMAN62PV1488SCHVXUMGCSRY19",
+        polygon: "NZWDG8TSSR45AXMKBFEN2PKUZVI24NSAYH",
+        binance: "UJF9B2ARBPV4CCC89Z95NJHQH44R1ZZJE1"
+    }
+}

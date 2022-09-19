@@ -395,7 +395,7 @@ export function MintingCardDetails({
             borderRadius={4}
           >
             <Label color="white">
-              This is a {getChainName(contractChainId)} testnet contract
+              This is a {contractChainId === "0x38" ? 'bsc' : contractChainId === "0x61" ? 'bsctest' : getChainName(contractChainId)} testnet contract
             </Label>
           </HStack>
         )}
