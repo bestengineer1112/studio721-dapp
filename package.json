@@ -1,0 +1,79 @@
+{
+  "name": "artverse",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Devin Abbott",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
+  "modular": {
+    "type": "root"
+  },
+  "scripts": {
+    "start": "modular start app",
+    "start:dev": "yarn workspace studio721 dev",
+    "start:studio": "yarn workspace studio721 start",
+    "build:studio": "yarn workspace studio721 build",
+    "start:polygen": "yarn workspace polygen dev",
+    "build:polygen": "yarn workspace polygen build",
+    "test": "modular test",
+    "test:no-watch": "modular test --watchAll=false",
+    "lint": "modular lint",
+    "lint-staged": "lint-staged",
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "eslintConfig": {
+    "extends": "modular-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 80,
+    "proseWrap": "always"
+  },
+  "dependencies": {
+    "@openpalette/color": "^0.0.2",
+    "@openpalette/contract": "^0.2.3",
+    "@openpalette/core": "^0.3.1",
+    "@radix-ui/react-aspect-ratio": "^0.1.1",
+    "@radix-ui/react-checkbox": "^0.1.1",
+    "@radix-ui/react-dialog": "^0.1.1",
+    "@radix-ui/react-hover-card": "^0.1.1",
+    "@testing-library/dom": "^8.10.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^9.6.55",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "critters": "^0.0.16",
+    "eslint-config-modular-app": "^1.0.11",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.1",
+    "modular-scripts": "2.2.0",
+    "prettier": "^2.4.1",
+    "typescript": "^4.1.2"
+  },
+  "lint-staged": {
+    "packages/**/*.{js,jsx,ts,tsx}": [
+      "npx prettier --write",
+      "npx eslint --fix --max-warnings 0"
+    ]
+  }
+}
