@@ -42,7 +42,6 @@ import {
   decodeConfigParameter,
   useUrlConfigReducer,
 } from '../hooks/useUrlConfigReducer';
-import Config from './config';
 
 interface ServerProps {
   isAddressLocked: boolean;

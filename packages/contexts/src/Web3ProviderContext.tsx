@@ -30,7 +30,7 @@ export type Web3ContextValue = {
   data?: {
     provider: ethers.providers.Web3Provider;
     address: Address;
-    chainId: ChainId;
+    chainId: any;
   };
   noWallet?: boolean;
   api: {
@@ -46,21 +46,21 @@ export type PaletteUsage = {
 
 const Web3Context = createContext<Web3ContextValue>({
   api: {
-    connect: async () => {},
-    disconnect: async () => {},
+    connect: async () => { },
+    disconnect: async () => { },
   },
 });
 
 type Action =
   | {
-      type: 'connected';
-      address: Address;
-      provider: ethers.providers.Web3Provider;
-      chainId: ChainId;
-    }
+    type: 'connected';
+    address: Address;
+    provider: ethers.providers.Web3Provider;
+    chainId: any;
+  }
   | {
-      type: 'disconnect';
-    };
+    type: 'disconnect';
+  };
 
 function reducer(
   state: Web3ContextValue['data'] | undefined,
@@ -189,7 +189,7 @@ export function useWeb3API(): Web3ContextValue['api'] {
   return useContext(Web3Context).api;
 }
 
-export function useChainId(): ChainId | undefined {
+export function useChainId(): ChainId | any {
   return useContext(Web3Context)?.data?.chainId;
 }
 

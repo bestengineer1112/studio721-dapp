@@ -58,14 +58,14 @@ const AccessTokenInputField = ({
 }) => {
   return (
     <FormRow indent={1} title={`${upperFirst(chainName)} address`}>
-      <InputField.Root id={`input-access-token-${chainName}-address`}>
+      <InputField.Root id={`input-access-token-${chainName as any}-address`}>
         <InputField.Input
           style={{
             fontFamily: 'monospace',
           }}
           disabled={disabled}
           value={requireAccessToken[chainName]}
-          onChange={(value) => {
+          onChange={(value: any) => {
             dispatch({
               type: 'setAccessToken',
               value: {
@@ -76,6 +76,8 @@ const AccessTokenInputField = ({
                   goerli: '',
                   polygon: '',
                   mumbai: '',
+                  bsctest: '',
+                  bsc: '',
                 }),
                 [chainName]: value,
               },
@@ -83,7 +85,7 @@ const AccessTokenInputField = ({
           }}
         />
       </InputField.Root>
-    </FormRow>
+    </FormRow >
   );
 };
 
@@ -129,14 +131,15 @@ const ApprovalProxyInputField = ({
   );
 };
 
-const chainNames: EthereumChainName[] = [
+const chainNames: any = [
   'mainnet',
   'rinkeby',
   'ropsten',
   'polygon',
   'mumbai',
+  'bsctest',
+  'bsc',
 ];
-
 export const MintingSection = memo(function MintingSection({
   config,
   disabled,
@@ -395,13 +398,13 @@ export const MintingSection = memo(function MintingSection({
               type: 'setAccessToken',
               value: value
                 ? {
-                    mainnet: getContractAddress(CHAIN_ID.MAINNET),
-                    rinkeby: getContractAddress(CHAIN_ID.RINKEBY),
-                    ropsten: '',
-                    goerli: '',
-                    polygon: '',
-                    mumbai: '',
-                  }
+                  mainnet: getContractAddress(CHAIN_ID.MAINNET),
+                  rinkeby: getContractAddress(CHAIN_ID.RINKEBY),
+                  ropsten: '',
+                  goerli: '',
+                  polygon: '',
+                  mumbai: '',
+                }
                 : undefined,
             });
           }}
@@ -459,12 +462,12 @@ export const MintingSection = memo(function MintingSection({
               }}
             />
           </FormRow>
-          {chainNames.map((chainName) => (
+          {chainNames.map((chainName: any) => (
             <AccessTokenInputField
               disabled={disabled}
               chainName={chainName}
               dispatch={dispatch}
-              requireAccessToken={config.requireAccessToken!}
+              requireAccessToken={config.requireAccessToken}
             />
           ))}
         </>
@@ -602,13 +605,13 @@ export const MintingSection = memo(function MintingSection({
               type: 'setApprovalProxyAddress',
               value: value
                 ? {
-                    mainnet: getProxyAddress(CHAIN_ID.MAINNET),
-                    rinkeby: getProxyAddress(CHAIN_ID.RINKEBY),
-                    ropsten: '',
-                    goerli: '',
-                    polygon: '',
-                    mumbai: '',
-                  }
+                  mainnet: getProxyAddress(CHAIN_ID.MAINNET),
+                  rinkeby: getProxyAddress(CHAIN_ID.RINKEBY),
+                  ropsten: '',
+                  goerli: '',
+                  polygon: '',
+                  mumbai: '',
+                }
                 : undefined,
             });
           }}
@@ -616,12 +619,12 @@ export const MintingSection = memo(function MintingSection({
       </FormRow>
       {config.approvalProxyAddress && (
         <>
-          {chainNames.map((chainName) => (
+          {chainNames.map((chainName: any) => (
             <ApprovalProxyInputField
               disabled={disabled}
               chainName={chainName}
               dispatch={dispatch}
-              approvalProxyAddress={config.approvalProxyAddress!}
+              approvalProxyAddress={config.approvalProxyAddress}
             />
           ))}
         </>

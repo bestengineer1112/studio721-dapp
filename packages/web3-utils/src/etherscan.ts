@@ -1,12 +1,12 @@
 import { ChainId, CHAIN_ID, getChainName } from '@openpalette/contract';
 
 export function isMainnetOrPolygon(
-  chainId: ChainId,
+  chainId: any,
 ): chainId is typeof CHAIN_ID.MAINNET | typeof CHAIN_ID.POLYGON {
   return chainId === CHAIN_ID.MAINNET || chainId === CHAIN_ID.POLYGON || chainId === "0x38";
 }
 
-function getHost(chainId: ChainId) {
+function getHost(chainId: any) {
   switch (chainId) {
     case CHAIN_ID.POLYGON:
     case CHAIN_ID.MUMBAI:
@@ -20,7 +20,7 @@ function getHost(chainId: ChainId) {
   }
 }
 
-export function getBlockExplorerName(chainId: ChainId) {
+export function getBlockExplorerName(chainId: any) {
   switch (chainId) {
     case CHAIN_ID.POLYGON:
     case CHAIN_ID.MUMBAI:
@@ -34,7 +34,7 @@ export function getBlockExplorerName(chainId: ChainId) {
   }
 }
 
-export function getEtherscanAddressUrl(chainId: ChainId, address: string) {
+export function getEtherscanAddressUrl(chainId: any, address: string) {
   const prefix = !isMainnetOrPolygon(chainId)
     ? `${chainId === "0x61" ? 'testnet' : getChainName(chainId)}.`
     : '';
@@ -42,7 +42,7 @@ export function getEtherscanAddressUrl(chainId: ChainId, address: string) {
   return `https://${prefix}${getHost(chainId)}/address/${address}`;
 }
 
-export function getEtherscanApiUrl(chainId: ChainId) {
+export function getEtherscanApiUrl(chainId: any) {
   const prefix = !isMainnetOrPolygon(chainId)
     ? `api-${chainId === "0x61" ? 'testnet' : getChainName(chainId)}`
     : 'api';

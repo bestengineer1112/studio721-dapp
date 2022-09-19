@@ -274,7 +274,7 @@ export function MintingCardDetails({
   abi: Interface;
   invertForeground: boolean;
   coverAsset: CoverAsset;
-  contractChainId: ChainId;
+  contractChainId: any;
   dataSources: MintStyleState['dataSources'];
   dispatch: (action: MintStyleAction) => void;
   onClickMint: (options: MintOptions) => void;
