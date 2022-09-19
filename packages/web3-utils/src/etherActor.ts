@@ -1,7 +1,7 @@
 import { ChainId, CHAIN_ID, getChainName } from '@openpalette/contract';
 import Config from './config';
 
-export function getEtherActorBaseURL(chainId: ChainId) {
+export function getEtherActorBaseURL(chainId: any) {
   const prefix =
     chainId !== CHAIN_ID.MAINNET ? `${chainId === "0x38" ? 'bsc' : chainId === "0x61" ? 'bsc-testnet' : getChainName(chainId)}.` : '';
 

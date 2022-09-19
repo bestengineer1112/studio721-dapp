@@ -20,5 +20,6 @@ yarn-debug.log*
 yarn-error.log*
 
 packages/**/public
+packages/
 /dist
 *.config.js

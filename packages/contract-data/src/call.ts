@@ -20,7 +20,7 @@ async function fetchJsonRpcData(
     contract,
     args = [],
   }: {
-    chainId: ChainId;
+    chainId: any;
     fragment: FunctionFragment;
     contract: Contract;
     args: any[];

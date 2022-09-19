@@ -14,6 +14,7 @@
   "scripts": {
     "start": "yarn workspace studio721 start",
     "build": "yarn workspace studio721 build",
+    "dev": "yarn workspace studio721 dev",
     "test": "modular test",
     "test:no-watch": "modular test --watchAll=false",
     "lint": "modular lint",
