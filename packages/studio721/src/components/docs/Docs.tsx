@@ -166,8 +166,8 @@ export function Docs({
           isExternalUrl(href)
             ? href
             : href.startsWith('#')
-            ? href
-            : `${urlPrefix}${href}`
+              ? href
+              : `${urlPrefix}${href}`
         }
         passHref
       >
