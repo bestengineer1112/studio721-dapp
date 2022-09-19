@@ -12,11 +12,8 @@
     "type": "root"
   },
   "scripts": {
-    "start:dev": "yarn workspace studio721 dev",
     "start": "yarn workspace studio721 start",
     "build": "yarn workspace studio721 build",
-    "start:polygen": "yarn workspace polygen dev",
-    "build:polygen": "yarn workspace polygen build",
     "test": "modular test",
     "test:no-watch": "modular test --watchAll=false",
     "lint": "modular lint",
