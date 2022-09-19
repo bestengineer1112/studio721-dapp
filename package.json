@@ -36,6 +36,9 @@
       "last 1 safari version"
     ]
   },
+  "browser": {
+    "child_process": false
+  },
   "prettier": {
     "singleQuote": true,
     "trailingComma": "all",
