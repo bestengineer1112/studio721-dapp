@@ -12,10 +12,9 @@
     "type": "root"
   },
   "scripts": {
-    "start": "modular start app",
     "start:dev": "yarn workspace studio721 dev",
-    "start:studio": "yarn workspace studio721 start",
-    "build:studio": "yarn workspace studio721 build",
+    "start": "yarn workspace studio721 start",
+    "build": "yarn workspace studio721 build",
     "start:polygen": "yarn workspace polygen dev",
     "build:polygen": "yarn workspace polygen build",
     "test": "modular test",
