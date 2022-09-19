@@ -20,7 +20,7 @@ import {
 import styled from 'styled-components';
 import { theme } from 'theme';
 import { isExternalUrl } from 'utils';
-import guidebook from '../../../guidebook';
+import guidebook from '../../../guidebook.ts';
 import { searchPages, searchTextMatch } from '../../utils/search';
 import { socialConfig } from '../../utils/socialConfig';
 import { JavascriptPlaygrounds } from 'artkit-browser/src/JavascriptPlaygrounds';
