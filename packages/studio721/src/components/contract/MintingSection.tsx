@@ -52,9 +52,9 @@ const AccessTokenInputField = ({
   chainName,
 }: {
   disabled: boolean;
-  requireAccessToken: ScopedAccessToken;
+  requireAccessToken: any;
   dispatch: (action: Action) => void;
-  chainName: keyof ScopedAccessToken;
+  chainName: any;
 }) => {
   return (
     <FormRow indent={1} title={`${upperFirst(chainName)} address`}>
@@ -96,9 +96,9 @@ const ApprovalProxyInputField = ({
   chainName,
 }: {
   disabled: boolean;
-  approvalProxyAddress: ScopedAccessToken;
+  approvalProxyAddress: any;
   dispatch: (action: Action) => void;
-  chainName: keyof ScopedAccessToken;
+  chainName: any;
 }) => {
   return (
     <FormRow indent={1} title={`${upperFirst(chainName)} address`}>
@@ -135,6 +135,7 @@ const chainNames: any = [
   'mainnet',
   'rinkeby',
   'ropsten',
+  'goerli',
   'polygon',
   'mumbai',
   'bsctest',
