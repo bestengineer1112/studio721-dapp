@@ -31,6 +31,8 @@ export function getABIBaseURL(chainId: any, address: string) {
     url = `https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address=${address}&apikey=${Config.API_KEY["etherscan"]}`;
   } else if ('0x45' === chainId) {
     url = `https://api-kovan-optimistic.etherscan.io/api?module=contract&action=getabi&address=${address}&apikey=${Config.API_KEY["etherscan"]}`;
+  } else if ('0x5' === chainId) {
+    url = `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${address}&apikey=${Config.API_KEY["etherscan"]}`;
   }
   console.log(url, "url");
   return url;

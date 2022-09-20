@@ -112,8 +112,8 @@ export default function Mint({
     }
 
     if (etherActorAbi.type !== 'success') return;
-
-    return new Interface(addDelegatedImplementation(JSON.parse(etherActorAbi.value.result)));
+    if (etherActorAbi?.value?.message == 'NOTOK') return;
+    return new Interface(addDelegatedImplementation(JSON.parse(etherActorAbi?.value?.result)));
   }, [etherActorAbi, serverAbi]);
 
   const contract = useMemo(() => {
@@ -156,7 +156,7 @@ export default function Mint({
   return (
     <VStack flex={'1 1 auto'} position="relative">
       {!abi && <BackgroundFill background={style.background} />}
-      {!serverAbi && etherActorAbi.type !== 'success' && (
+      {!serverAbi && (
         <VStack flex="1" alignItems="center" justifyContent="center">
           <VStack width={450} gap={20}>
             <VStack>
@@ -194,10 +194,10 @@ export default function Mint({
                   </Body>
                 </>
               )}
-              {etherActorAbi.type === 'failure' && (
+              {etherActorAbi?.value?.message == 'NOTOK' && (
                 <>
                   <Body textAlign="center" color="red" fontFamily="monospace">
-                    {etherActorAbi.value.message}
+                    {etherActorAbi.value.result}
                   </Body>
                   {!provider && (
                     <>
