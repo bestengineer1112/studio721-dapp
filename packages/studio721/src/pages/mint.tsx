@@ -156,7 +156,7 @@ export default function Mint({
   return (
     <VStack flex={'1 1 auto'} position="relative">
       {!abi && <BackgroundFill background={style.background} />}
-      {!serverAbi && etherActorAbi?.value?.message == 'OK' && (
+      {!serverAbi && etherActorAbi?.value?.message !== 'OK' && (
         <VStack flex="1" alignItems="center" justifyContent="center">
           <VStack width={450} gap={20}>
             <VStack>
