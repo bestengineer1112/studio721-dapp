@@ -3,6 +3,7 @@ import {
   createAddress,
   ChainId,
   CHAIN_ID,
+  getChainName,
 } from '@openpalette/contract';
 import { NullAddress } from 'utils';
 import { isMainnetOrPolygon } from '.';
@@ -13,10 +14,9 @@ export function getOpenSeaUrl(
   index: number,
 ) {
   const prefix = !isMainnetOrPolygon(chainId) ? `testnets.` : '';
-  const chainName =
-    chainId === CHAIN_ID.POLYGON || chainId === CHAIN_ID.MUMBAI ? 'matic/' : '';
+  const chainName = chainId === CHAIN_ID.POLYGON || chainId === CHAIN_ID.MUMBAI ? 'matic' : getChainName(chainId);
 
-  return `https://${prefix}opensea.io/assets/${chainName}${contractAddress}/${index}`;
+  return `https://${prefix}opensea.io/assets/${chainName}/${contractAddress}/${index}`;
 }
 
 const proxyAddressMap: Record<ChainId, Address> = {
