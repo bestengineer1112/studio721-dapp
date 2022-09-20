@@ -235,7 +235,7 @@ export default function NFTStudio() {
       try {
         if (
           state.config.usesDelegatedContract &&
-          !(chainId === CHAIN_ID.MAINNET || chainId === CHAIN_ID.RINKEBY || chainId === CHAIN_ID.GOERLI)
+          !(chainId === CHAIN_ID.MAINNET || chainId === CHAIN_ID.RINKEBY )
         ) {
           alert(
             "You can't use the 'Reduce deployment costs' option on this network! Mainnet and Rinkeby only for now.",
